@@ -1,38 +1,35 @@
-import { client } from "@/sanity/lib/client";
-import { SERVICES_QUERY } from "@/sanity/lib/queries";
-import type { Service } from "@/types";
+import Image from "next/image";
 
-export default async function HomePage() {
-  const services = await client.fetch<Service[]>(SERVICES_QUERY);
-
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-10">
-      <h1 className="text-4xl font-bold mb-8 text-center">SafeCore Riešenia</h1>
-
-      <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {services.map((service) => (
-          <div
-            key={service._id}
-            className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-blue-500 transition-colors"
-          >
-            <div className="text-xs font-mono text-blue-400 mb-2 uppercase tracking-widest">
-              {service.category}
-            </div>
-            <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              {service.description}
-            </p>
-          </div>
-        ))}
+    <main className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+      {/* Tvoje logo z /public/logo.png */}
+      <div className="mb-8 relative w-48 h-48 border-4 border-safecore-blue rounded-full p-2 overflow-hidden bg-slate-900">
+        <Image
+          src="/logo/SafeCore.png"
+          alt="SafeCore Logo"
+          fill
+          className="object-contain p-4"
+        />
       </div>
 
+      <h1 className="text-5xl font-black tracking-tighter mb-4">
+        Safe<span className="text-safecore-blue">Core</span>
+      </h1>
 
-      {services.length === 0 && (
-        <p className="text-center text-slate-500 mt-10">
-          V Sanity Studiu zatiaľ nie sú žiadne služby. Choď na /studio a pridaj
-          prvú!
-        </p>
-      )}
+      <p className="max-w-xl text-slate-400 text-lg mb-10">
+        Inteligentná bezpečnosť pre 21. storočie. Spájame fyzickú ochranu s AI
+        monitoringom.
+      </p>
+
+      <div className="flex gap-4">
+        <button className="bg-safecore-blue hover:bg-blue-600 px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-blue-500/20">
+          Naše Služby
+        </button>
+        <button className="border border-slate-700 hover:border-safecore-blue px-8 py-3 rounded-full font-bold transition-all">
+          SBS Akadémia
+        </button>
+      </div>
     </main>
   );
 }
